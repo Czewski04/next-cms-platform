@@ -5,15 +5,9 @@ import { PrismaClient } from '../generated/prisma/client';
 
 const prismaClient = () => {
     const connectionString = process.env.DATABASE_URL;
-    const pool = new Pool({
-        connectionString,
-        max: 20,
-    })
+    const pool = new Pool({connectionString, max: 20,})
     const adapter = new PrismaPg(pool);
-    return new PrismaClient({
-        adapter,
-        log: ['query', 'error', 'warn'],
-    });
+    return new PrismaClient({adapter});
 };
 
 

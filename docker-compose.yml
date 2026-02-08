@@ -1,19 +1,19 @@
 services:
   db:
-    image: postgres:18
+    image: postgres:18.1
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql
     networks:
       - app-network
     ports:
       - 5433:5432
 
-pgbouncer:
+  pgbouncer:
     image: edoburu/pgbouncer:latest
     restart: always
     environment:
@@ -25,6 +25,7 @@ pgbouncer:
       MAX_CLIENT_CONN: 1000
       DEFAULT_POOL_SIZE: 20
       ADMIN_USERS: ${DB_USER}
+      AUTH_TYPE: scram-sha-256
     ports:
       - ${PORT:-5432}:5432
     depends_on:
