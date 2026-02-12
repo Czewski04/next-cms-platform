@@ -1,5 +1,9 @@
+import { logout } from "@/actions/auth-actions";
+
 export default function AdminPage(){
     return (
-        <h1>Admin Page</h1>
+        <form action={logout}>
+            <button type="submit">Logout</button>
+        </form>
     );
 }
