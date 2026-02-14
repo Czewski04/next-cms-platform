@@ -4,7 +4,7 @@ import { authConfig } from "../../auth.config";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { InvalidCredentialsError, InvalidEmailError, InvalidPasswordError } from "./exceptions";
+import { DatabaseUnavailableError, InvalidCredentialsError, InvalidEmailError, InvalidPasswordError } from "./exceptions";
 
 const prisma = db;
 
@@ -14,6 +14,7 @@ async function getUser(email: string) {
         return user;
     } catch (error) {
         console.error("Error fetching user:", error);
+        throw new DatabaseUnavailableError();
     }
 }
 

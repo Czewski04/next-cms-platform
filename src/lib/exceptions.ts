@@ -1,4 +1,4 @@
-import { CredentialsSignin } from "next-auth";
+import { AuthError, CredentialsSignin } from "next-auth";
 
 export class InvalidEmailError extends CredentialsSignin{
     code = "InvalidEmail";
@@ -13,4 +13,9 @@ export class InvalidPasswordError extends CredentialsSignin{
 export class InvalidCredentialsError extends CredentialsSignin{
     code = "InvalidCredentials";
     message = "Wrong email or password";
+}
+
+export class DatabaseUnavailableError extends AuthError {
+    code = "DatabaseUnavailable";
+    message = "Database is currently unavailable. Please try again later.";
 }
